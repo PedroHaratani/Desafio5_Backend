@@ -3,11 +3,12 @@ package br.com.banco.services;
 
 import br.com.banco.models.Transferencia;
 import br.com.banco.repositories.TransferenciaRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
-
+@Component
 @Service
 public class TransferenciaService {
 
@@ -18,8 +19,8 @@ public class TransferenciaService {
     }
 
 
-    public List<Transferencia> getByDate(Timestamp time){
-        return transferenciaRepository.findByDate(time);
+    public List<Transferencia> getByDate(Date time){
+        return transferenciaRepository.findByDataTransferencia(time);
     }
 
     public List<Transferencia> getAll(){
@@ -29,10 +30,10 @@ public class TransferenciaService {
 
 
     public List<Transferencia> findByNameOperator(String nome) {
-        return transferenciaRepository.findByNome_operador_transacao(nome);
+        return transferenciaRepository.findByNomeOperadorTransacao(nome);
     }
 
-    public List<Transferencia> findByNameAndDate(String nome, Timestamp time) {
-        return transferenciaRepository.findByNome_operador_transacaoAndData_transferencia(nome,time);
+    public List<Transferencia> findByNameAndDate(String nome, Date time) {
+        return transferenciaRepository.findByNomeOperadorTransacaoAndDataTransferencia(nome,time);
     }
 }

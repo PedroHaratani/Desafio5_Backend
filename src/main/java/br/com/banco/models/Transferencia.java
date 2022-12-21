@@ -5,23 +5,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 //@Table(name = "transferencia", uniqueConstraints = {@UniqueConstraint(columnNames = {"conta_id"})})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transferencia {
+public class Transferencia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "serial")
     private int id;
-    private Timestamp data_transferencia;
+    @Column(name = "data_transferencia")
+    private Date data_transferencia;
+    @Column
     private double valor;
+    @Column
     private String tipo;
+    @Column(name = "nome_operador_transacao")
     private String nome_operador_transacao;
-   // @ManyToMany(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "conta.id")
+    @Column
     private int conta_id;
 }

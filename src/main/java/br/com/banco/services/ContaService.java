@@ -3,12 +3,13 @@ package br.com.banco.services;
 
 import br.com.banco.models.Conta;
 import br.com.banco.repositories.ContaRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
+@Component
 @Service
 public class ContaService {
 
@@ -35,9 +36,6 @@ public class ContaService {
         repository.delete(conta);
     }
 
-    public boolean existsName(String nomeResponsavel) {
-        return repository.existsName(nomeResponsavel);
-    }
 
     public Optional<Conta> findById(int id) {
         return repository.findById(id);

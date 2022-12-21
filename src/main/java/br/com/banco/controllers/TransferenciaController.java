@@ -5,11 +5,13 @@ import br.com.banco.models.Transferencia;
 import br.com.banco.services.TransferenciaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
-
+@Component
 @RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
 @RequestMapping(value = "/transferencias")
@@ -21,7 +23,7 @@ public class TransferenciaController {
     }
 
     @GetMapping("/{nome}/{time}")
-    public ResponseEntity<List<Transferencia>> getByNameAndDate(@PathVariable("nome") String nome, @PathVariable("time") Timestamp time){
+    public ResponseEntity<List<Transferencia>> getByNameAndDate(@PathVariable("nome") String nome, @PathVariable("time") Date time){
         return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findByNameAndDate(nome,time));
     }
 
@@ -32,7 +34,7 @@ public class TransferenciaController {
 
     @GetMapping("/{time}")
     @ResponseBody
-    public ResponseEntity<List<Transferencia>> getByDate(@PathVariable("time")Timestamp time){
+    public ResponseEntity<List<Transferencia>> getByDate(@PathVariable("time")Date time){
         return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.getByDate(time));
     }
 
