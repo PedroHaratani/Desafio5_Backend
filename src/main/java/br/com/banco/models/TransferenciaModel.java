@@ -1,6 +1,7 @@
 package br.com.banco.models;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,7 +12,7 @@ public class TransferenciaModel {
     private int id;
 
     @Column(nullable = true)
-    private LocalDateTime data_tranferencia;
+    private Timestamp data_tranferencia;
 
     @Column(nullable = false)
     private double valor;
@@ -30,11 +31,11 @@ public class TransferenciaModel {
         this.id = id;
     }
 
-    public LocalDateTime getData_tranferencia() {
+    public Timestamp getData_tranferencia() {
         return data_tranferencia;
     }
 
-    public void setData_tranferencia(LocalDateTime data_tranferencia) {
+    public void setData_tranferencia(Timestamp data_tranferencia) {
         this.data_tranferencia = data_tranferencia;
     }
 

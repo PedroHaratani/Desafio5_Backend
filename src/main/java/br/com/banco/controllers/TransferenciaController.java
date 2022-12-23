@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class TransferenciaController {
     }
 
     @GetMapping("/date/{date}")
-    public ResponseEntity<List<TransferenciaModel>> getByDate(@PathVariable("date")LocalDateTime date){
+    public ResponseEntity<List<TransferenciaModel>> getByDate(@PathVariable("date") Timestamp date){
         return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findByDate(date));
     }
 

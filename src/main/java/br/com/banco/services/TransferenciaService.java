@@ -4,6 +4,7 @@ import br.com.banco.models.TransferenciaModel;
 import br.com.banco.repositories.TranferenciaRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +29,7 @@ public class TransferenciaService {
         return tranferenciaRepository.findByNome_operador_transacaoAllIgnoreCase(name);
     }
 
-    public List<TransferenciaModel> findByDate(LocalDateTime date) {
+    public List<TransferenciaModel> findByDate(Timestamp date) {
         return tranferenciaRepository.findByData_tranferenciaGreaterThanEqual(date);
     }
 
