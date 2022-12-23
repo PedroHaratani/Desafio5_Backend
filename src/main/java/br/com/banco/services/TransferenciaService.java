@@ -1,39 +1,38 @@
 package br.com.banco.services;
 
-
-import br.com.banco.models.Transferencia;
-import br.com.banco.repositories.TransferenciaRepository;
-import org.springframework.stereotype.Component;
+import br.com.banco.models.TransferenciaModel;
+import br.com.banco.repositories.TranferenciaRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
-@Component
+import java.util.Optional;
+
 @Service
 public class TransferenciaService {
+    final TranferenciaRepository tranferenciaRepository;
 
-    final TransferenciaRepository transferenciaRepository;
-
-    public TransferenciaService(TransferenciaRepository transferenciaRepository) {
-        this.transferenciaRepository = transferenciaRepository;
+    public TransferenciaService(TranferenciaRepository tranferenciaRepository) {
+        this.tranferenciaRepository = tranferenciaRepository;
     }
 
-
-    public List<Transferencia> getByDate(Date time){
-        return transferenciaRepository.findByDataTransferencia(time);
+    public TransferenciaModel save(TransferenciaModel transferenciaModel) {
+        return tranferenciaRepository.save(transferenciaModel);
     }
 
-    public List<Transferencia> getAll(){
-        return transferenciaRepository.findAll();
+    public List<TransferenciaModel> findAll() {
+        return tranferenciaRepository.findAll();
     }
 
-
-
-    public List<Transferencia> findByNameOperator(String nome) {
-        return transferenciaRepository.findByNomeOperadorTransacao(nome);
+    public List<TransferenciaModel> findByName(String name) {
+        return tranferenciaRepository.findByNome_operador_transacaoAllIgnoreCase(name);
     }
 
-    public List<Transferencia> findByNameAndDate(String nome, Date time) {
-        return transferenciaRepository.findByNomeOperadorTransacaoAndDataTransferencia(nome,time);
+    public List<TransferenciaModel> findByDate(LocalDateTime date) {
+        return tranferenciaRepository.findByData_tranferenciaGreaterThanEqual(date);
+    }
+
+    public List<TransferenciaModel> findByNameAndDate(String name, LocalDateTime date) {
+        return tranferenciaRepository.findByNome_operador_transacaoLikeAndData_tranferenciaGreaterThanEqual(name,date);
     }
 }

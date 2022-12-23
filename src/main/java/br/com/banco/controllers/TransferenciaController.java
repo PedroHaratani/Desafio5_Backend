@@ -1,48 +1,53 @@
 package br.com.banco.controllers;
 
 
-import br.com.banco.models.Transferencia;
+import br.com.banco.dtos.TransferenciaDto;
+import br.com.banco.models.TransferenciaModel;
 import br.com.banco.services.TransferenciaService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
-@Component
+import java.util.Optional;
+
 @RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
-@RequestMapping(value = "/transferencias")
+@RequestMapping("/transferencia")
 public class TransferenciaController {
     final TransferenciaService transferenciaService;
 
-    public TransferenciaController(TransferenciaService transferenciaService) {
-        this.transferenciaService = transferenciaService;
+    public TransferenciaController(TransferenciaService contaService) {
+        this.transferenciaService = contaService;
     }
 
-    @GetMapping("/{nome}/{time}")
-    public ResponseEntity<List<Transferencia>> getByNameAndDate(@PathVariable("nome") String nome, @PathVariable("time") Date time){
-        return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findByNameAndDate(nome,time));
-    }
 
-    @GetMapping("/{nome}")
-    public ResponseEntity<List<Transferencia>> getByNameOperator(@PathVariable("nome")String nome){
-        return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findByNameOperator(nome));
-    }
-
-    @GetMapping("/{time}")
-    @ResponseBody
-    public ResponseEntity<List<Transferencia>> getByDate(@PathVariable("time")Date time){
-        return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.getByDate(time));
+    @PostMapping
+    public ResponseEntity<Object> salvarConta(@RequestBody TransferenciaDto transferenciaDto){
+        var transferenciaModel = new TransferenciaModel();
+        BeanUtils.copyProperties(transferenciaDto,transferenciaModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(transferenciaService.save(transferenciaModel));
     }
 
     @GetMapping
-    @ResponseBody
-    public ResponseEntity<List<Transferencia>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.getAll());
+    public ResponseEntity<List<TransferenciaModel>> getAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findAll());
     }
 
+    @GetMapping("/date/{date}")
+    public ResponseEntity<List<TransferenciaModel>> getByDate(@PathVariable("date")LocalDateTime date){
+        return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findByDate(date));
+    }
 
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<TransferenciaModel>> getByName(@PathVariable("name") String name){
+        return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findByName(name));
+    }
+
+    @GetMapping("/test/{name2}/{date}")
+    public ResponseEntity<List<TransferenciaModel>> getByNameAndDate(@PathVariable("name2")String name,@PathVariable("date") LocalDateTime date){
+        return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findByNameAndDate(name,date));
+    }
 }

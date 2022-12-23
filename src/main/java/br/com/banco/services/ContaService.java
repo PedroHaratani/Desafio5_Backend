@@ -1,43 +1,32 @@
 package br.com.banco.services;
 
-
-import br.com.banco.models.Conta;
+import br.com.banco.models.ContaModel;
 import br.com.banco.repositories.ContaRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-@Component
+
 @Service
 public class ContaService {
 
-    final ContaRepository repository;
+    final ContaRepository contaRepository;
 
-    public ContaService(ContaRepository repository) {
-        this.repository = repository;
+    public ContaService(ContaRepository contaRepository) {
+        this.contaRepository = contaRepository;
     }
 
     @Transactional
-    public Conta create(Conta conta){
-        return repository.save(conta);
-    }
-    public Conta update(Conta conta){
-        return repository.save(conta);
+    public ContaModel save(ContaModel contaModel) {
+        return contaRepository.save(contaModel);
     }
 
-    public List<Conta> getAll(){
-        return repository.findAll();
+    public List<ContaModel> findAll() {
+        return contaRepository.findAll();
     }
 
-    @Transactional
-    public void delete(Conta conta){
-        repository.delete(conta);
-    }
-
-
-    public Optional<Conta> findById(int id) {
-        return repository.findById(id);
+    public Optional<ContaModel> findById(int id) {
+        return contaRepository.findById(id);
     }
 }

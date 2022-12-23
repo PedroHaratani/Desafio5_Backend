@@ -1,9 +1,9 @@
 package br.com.banco.repositories;
 
-import br.com.banco.models.Conta;
+import br.com.banco.models.ContaModel;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
-public interface ContaRepository  extends JpaRepository<Conta,Integer> {
+@Repository
+public interface ContaRepository extends JpaRepository<ContaModel, Integer> {
 }
