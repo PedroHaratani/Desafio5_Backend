@@ -5,6 +5,7 @@ import br.com.banco.dtos.TransferenciaDto;
 import br.com.banco.models.TransferenciaModel;
 import br.com.banco.services.TransferenciaService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +38,8 @@ public class TransferenciaController {
         return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findAll());
     }
 
-    @GetMapping("/date/{date}")
-    public ResponseEntity<List<TransferenciaModel>> getByDate(@PathVariable("date") Timestamp date){
+    @GetMapping("/date1/{date}/date2/{date2}")
+    public ResponseEntity<List<TransferenciaModel>> getByDate(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date){
         return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findByDate(date));
     }
 
@@ -47,8 +48,8 @@ public class TransferenciaController {
         return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findByName(name));
     }
 
-    @GetMapping("/test/{name2}/{date}")
-    public ResponseEntity<List<TransferenciaModel>> getByNameAndDate(@PathVariable("name2")String name,@PathVariable("date") LocalDateTime date){
+    @GetMapping("/test/{name2}/{date}/{date2}")
+    public ResponseEntity<List<TransferenciaModel>> getByNameAndDate(@PathVariable("name2")String name,@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date){
         return ResponseEntity.status(HttpStatus.OK).body(transferenciaService.findByNameAndDate(name,date));
     }
 }

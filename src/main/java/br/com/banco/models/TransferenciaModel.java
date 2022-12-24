@@ -3,6 +3,7 @@ package br.com.banco.models;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "transferencia")
@@ -12,10 +13,14 @@ public class TransferenciaModel {
     private int id;
 
     @Column(nullable = true)
-    private Timestamp data_tranferencia;
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date data_tranferencia;
 
     @Column(nullable = false)
     private double valor;
+
+    @Column(nullable = true)
+    private String tipo;
 
     @Column(nullable = true)
     private String nome_operador_transacao;
@@ -31,11 +36,11 @@ public class TransferenciaModel {
         this.id = id;
     }
 
-    public Timestamp getData_tranferencia() {
+    public Date getData_tranferencia() {
         return data_tranferencia;
     }
 
-    public void setData_tranferencia(Timestamp data_tranferencia) {
+    public void setData_tranferencia(Date data_tranferencia) {
         this.data_tranferencia = data_tranferencia;
     }
 
@@ -45,6 +50,14 @@ public class TransferenciaModel {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getNome_operador_transacao() {

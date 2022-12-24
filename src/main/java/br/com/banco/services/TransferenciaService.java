@@ -22,15 +22,15 @@ public class TransferenciaService {
     }
 
     public List<TransferenciaModel> findAll() {
-        return tranferenciaRepository.findAll();
+        return tranferenciaRepository.findByIdNotNull();
     }
 
     public List<TransferenciaModel> findByName(String name) {
         return tranferenciaRepository.findByNome_operador_transacaoAllIgnoreCase(name);
     }
 
-    public List<TransferenciaModel> findByDate(Timestamp date) {
-        return tranferenciaRepository.findByData_tranferenciaGreaterThanEqual(date);
+    public List<TransferenciaModel> findByDate(LocalDateTime date) {
+        return tranferenciaRepository.findByData_tranferenciaBetween(date,date);
     }
 
     public List<TransferenciaModel> findByNameAndDate(String name, LocalDateTime date) {
